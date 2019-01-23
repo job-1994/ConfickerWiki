@@ -61,32 +61,3 @@ As mentioned, Conficker has 5 variants (A,B,,C,D,E). A was the first, and relied
 [1]  http://www.csl.sri.com/users/vinod/papers/Conficker/
 [2] https://www.welivesecurity.com/2016/11/21/odd-8-year-legacy-conficker-worm/
 
-
-Once the program has installed itself, it attempts to setup an http server. It does this by first obtaining the ip of the system by visiting one of the following websites:
-* getmyip.co.uk
-* getmyip.org
-* checkip.dyndns.org
-
-Next it will check if the system is in the Ukraine, by checking the ip address against the GeoIP database. If it is in the Ukraine, then the worm suicides, and the system is no longer infected. Otherwise it attempts to set up a HTTP Server, on the following address: *http://[ip_adddress_of_system]:[random_port]*. From this the server will scan for other devices to infect.
-
-### Payload Propagation
-Once the svchost executes the program, it generates 250 random domain names	. The random number generator is seeded with the system date. In this way, all infected hosts with the same system date,generate the same ip addresses. These domains become rendezvous points for communication between all the infected hosts, and the Conficker client which wishes to upload a file. In Conficker C, the domain name could also be transported to all computers on a local network by opening a pipe.  
-
-### Payload Protection
-To prevent the payload from hijackers, it is SHA-1 hashed and RC4 encrypted. The hash is signed with a private key, and once the payload is propagated and unpacked, the code will only be executed if the signature is verified by a public key, which is contained in the worm. 
-
-## The variants
-As mentioned, Conficker has 5 variants (A,B,,C,D,E). A was the first, and relied purely on the MS08-067 vulnerability to spread. B added the ability for spreading the virus through removable drives. C increased the amount of domain names generated. C allowed peer-to-peer communication through the pipe communication previously mentioned. D was not a new release of virussses, but instead simply updated the systems infected with variant C, and changed the algorithm used to generate domain names. E was another update for Conficker C, and downloaded Waledac spambot and SpyProtect scareware.
-
-## Other effects
-
-* Disabling of Windows Auto-Update, Defender
-* Certain security websites become disabled (Windows update or antivirus software)
-* Users of the system locked out
-
-
-
-
-## Sources
-https://www.welivesecurity.com/2016/11/21/odd-8-year-legacy-conficker-worm/
-http://www.csl.sri.com/users/vinod/papers/Conficker/
